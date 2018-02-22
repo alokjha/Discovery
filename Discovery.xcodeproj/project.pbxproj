@@ -12,9 +12,13 @@
 		C2E5ABDA203ECE8F0061C097 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2E5ABD8203ECE8F0061C097 /* Main.storyboard */; };
 		C2E5ABDC203ECE8F0061C097 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2E5ABDB203ECE8F0061C097 /* Assets.xcassets */; };
 		C2E5ABDF203ECE8F0061C097 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2E5ABDD203ECE8F0061C097 /* LaunchScreen.storyboard */; };
+		F53F708923F4847CF3D09AC8 /* Pods_Discovery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C671632EAE9783C02FAB248 /* Pods_Discovery.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C671632EAE9783C02FAB248 /* Pods_Discovery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Discovery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2349F4F27DB5E1AF39652808 /* Pods-Discovery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discovery.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Discovery/Pods-Discovery.debug.xcconfig"; sourceTree = "<group>"; };
+		46231E3CF8C60966BBEC15E9 /* Pods-Discovery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Discovery.release.xcconfig"; path = "Pods/Target Support Files/Pods-Discovery/Pods-Discovery.release.xcconfig"; sourceTree = "<group>"; };
 		C2E5ABD1203ECE8F0061C097 /* Discovery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Discovery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E5ABD4203ECE8F0061C097 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2E5ABD6203ECE8F0061C097 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +33,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F53F708923F4847CF3D09AC8 /* Pods_Discovery.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2BE269775245F6A631CE789C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0C671632EAE9783C02FAB248 /* Pods_Discovery.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C2E5ABC8203ECE8E0061C097 = {
 			isa = PBXGroup;
 			children = (
 				C2E5ABD3203ECE8F0061C097 /* Discovery */,
 				C2E5ABD2203ECE8F0061C097 /* Products */,
+				FB0D77F3DC38901702E4A617 /* Pods */,
+				2BE269775245F6A631CE789C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +79,15 @@
 			path = Discovery;
 			sourceTree = "<group>";
 		};
+		FB0D77F3DC38901702E4A617 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2349F4F27DB5E1AF39652808 /* Pods-Discovery.debug.xcconfig */,
+				46231E3CF8C60966BBEC15E9 /* Pods-Discovery.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C2E5ABE3203ECE8F0061C097 /* Build configuration list for PBXNativeTarget "Discovery" */;
 			buildPhases = (
+				386A7765A38EA842602A1E1A /* [CP] Check Pods Manifest.lock */,
 				C2E5ABCD203ECE8F0061C097 /* Sources */,
 				C2E5ABCE203ECE8F0061C097 /* Frameworks */,
 				C2E5ABCF203ECE8F0061C097 /* Resources */,
+				8CC8954DA8D3F527EBE7F91E /* [CP] Embed Pods Frameworks */,
+				6C57869F67C3FBF19286795E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,6 +157,74 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		386A7765A38EA842602A1E1A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Discovery-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6C57869F67C3FBF19286795E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Discovery/Pods-Discovery-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8CC8954DA8D3F527EBE7F91E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Discovery/Pods-Discovery-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
+				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
+				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncDisplayKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Discovery/Pods-Discovery-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C2E5ABCD203ECE8F0061C097 /* Sources */ = {
@@ -272,31 +367,35 @@
 		};
 		C2E5ABE4203ECE8F0061C097 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2349F4F27DB5E1AF39652808 /* Pods-Discovery.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FBXNNJCQ93;
 				INFOPLIST_FILE = Discovery/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alokjha.Discovery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		C2E5ABE5203ECE8F0061C097 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46231E3CF8C60966BBEC15E9 /* Pods-Discovery.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FBXNNJCQ93;
 				INFOPLIST_FILE = Discovery/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alokjha.Discovery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
