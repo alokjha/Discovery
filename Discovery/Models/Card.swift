@@ -16,11 +16,15 @@ struct Address : Codable {
 struct Card : Codable {
     let id : String
     let imageName : String
-    let price : Float
+    let price : String
     let numBeds : Int
     let numToilets : Int
     let sizeSQM : String
     let address : Address
+    
+    var addressString : String {
+        return address.block +  " " + address.road
+    }
     
     private enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -31,21 +35,21 @@ struct Card : Codable {
         case sizeSQM
         case address
     }
+    
 }
 
 struct CardList : Codable {
     let cards : [Card]
-    
-    init(from decoder: Decoder) throws {
-        let cardListResponse = try CardListResponse(from : decoder)
-        cards = cardListResponse.data.cards
-    }
 }
 
-private struct CardListResponse : Codable {
+struct CardListResponse : Codable {
     let data : CardList
+    let message : String
+    let statusCode : Int
     
     private enum CodingKeys: String, CodingKey {
         case data = "_data"
+        case message = "_message"
+        case statusCode = "_statusCode"
     }
 }
