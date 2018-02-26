@@ -23,6 +23,7 @@ class DiscoveryViewController: ASViewController<ASDisplayNode> {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "Search..."
         searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchBar.isTranslucent = false
         searchController.searchBar.barTintColor = UIColor.blue
         searchController.searchBar.tintColor = UIColor.white
         return searchController
@@ -75,6 +76,7 @@ extension DiscoveryViewController : UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         let colorVC = ColorViewController(withColor: UIColor.red)
+        colorVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(colorVC, animated: true)
         return false
     }
@@ -86,10 +88,10 @@ extension DiscoveryViewController : ASTableDataSource,ASTableDelegate {
     func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
         
         var width : CGFloat  = UIScreen.main.bounds.size.width
-        var height : CGFloat = 150.0
+        var height : CGFloat = 200.0
         
         if indexPath.row == 0 {
-            return BannerPagerNode(elementSize: CGSize(width: width, height: height))
+            return BannerCollectionNode(elementSize: CGSize(width: width, height: height))
         }
         
         width -= 30.0

@@ -43,6 +43,8 @@ class HorizontalCollectionNode : ASCellNode {
         
         super.init()
         
+        self.selectionStyle = .none
+        
         addSubnode(headerNode)
         addSubnode(collectionNode)
         
@@ -82,13 +84,11 @@ class HorizontalCollectionNode : ASCellNode {
         let cardReuest = CardRequest(name: cardType.rawValue)
         
         client.send(apiRequest: cardReuest)
-            .debug("my request")
             .observeOn(MainScheduler.instance)
             .map { (response : CardListResponse)  in
                 response.data.cards
             }
             .subscribe(onNext: { (cards : [Card]) in
-                print("cards : \n \(cards)")
                 self.cards.append(contentsOf: cards)
                 self.collectionNode.reloadData()
             }, onError: { (error) in
@@ -116,9 +116,11 @@ extension HorizontalCollectionNode : ASCollectionDataSource,ASCollectionDelegate
         }
     }
     
+    
     func collectionNode(_ collectionNode: ASCollectionNode, didSelectItemAt indexPath: IndexPath) {
         collectionNode.deselectItem(at: indexPath, animated: true)
         let colorVC = ColorViewController(withColor: UIColor.blue)
+        colorVC.hidesBottomBarWhenPushed = true
         self.viewController()?.navigationController?.pushViewController(colorVC, animated: true)
     }
 }

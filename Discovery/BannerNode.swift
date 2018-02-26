@@ -8,6 +8,8 @@
 
 import AsyncDisplayKit
 import RxSwift
+import SafariServices
+
 
 class BannerNode : ASCellNode {
     
@@ -30,9 +32,16 @@ class BannerNode : ASCellNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        imageNode.style.preferredSize = constrainedSize.max
+        imageNode.style.preferredSize = CGSize(width: constrainedSize.max.width, height: constrainedSize.max.height-30)
         let spec = ASAbsoluteLayoutSpec(sizing: .default, children: [imageNode])
         return spec
+    }
+    
+    override func layout() {
+        super.layout()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        //self.view.addGestureRecognizer(tapGesture)
     }
     
     func loadImage() {
@@ -47,5 +56,11 @@ class BannerNode : ASCellNode {
                 print("ImageRequest error : \(error)")
             })
             .disposed(by: disposeBag)
+    }
+    
+    @objc func tapped() {
+        
+        let safariVC = SFSafariViewController(url: URL.init(string: banner.urlLink)!)
+        self.viewController()?.present(safariVC, animated: true, completion: nil)
     }
 }
