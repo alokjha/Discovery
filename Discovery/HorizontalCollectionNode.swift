@@ -13,23 +13,15 @@ import RxSwift
 fileprivate let kOuterPadding : CGFloat = 5.0
 fileprivate let kInnerPadding : CGFloat = 10.0
 
-enum CardType : String {
-    
-    case featured
-    case latest
-    case openHouse
-    case under
-    case houseRent
-    case roomRent
-    
-}
+
 
 class HorizontalCollectionNode : ASCellNode {
     
     fileprivate let client = APIClient()
     fileprivate let disposeBag = DisposeBag()
+    
     let collectionNode : ASCollectionNode
-    let divider : ASDisplayNode
+    let headerNode : HeaderNode
     let elementSize : CGSize
     let cardType : CardType
     
@@ -46,14 +38,13 @@ class HorizontalCollectionNode : ASCellNode {
         flowLayout.minimumInteritemSpacing = kInnerPadding
         
         collectionNode = ASCollectionNode(collectionViewLayout: flowLayout)
-        collectionNode.contentInset = UIEdgeInsetsMake(5, 5, 5, 5 )
-        divider = ASDisplayNode()
-        divider.backgroundColor = UIColor.lightGray
+        
+        headerNode = HeaderNode(forCardType: cardType)
         
         super.init()
         
-        self.addSubnode(collectionNode)
-        self.addSubnode(divider)
+        addSubnode(headerNode)
+        addSubnode(collectionNode)
         
         collectionNode.dataSource = self
         collectionNode.delegate = self
@@ -65,21 +56,25 @@ class HorizontalCollectionNode : ASCellNode {
         super.layout()
         
         collectionNode.contentInset = UIEdgeInsetsMake(0, kOuterPadding, 0, kOuterPadding)
-        
-        let pixelHeight = 1.0/UIScreen.main.scale
-        
-        divider.frame = CGRect(x: 0, y: 0, width: self.calculatedSize.width, height: pixelHeight)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let collectionNodeSize = CGSize(width: constrainedSize.max.width, height: elementSize.height)
+        
+        let headerNodeSize = CGSize(width: constrainedSize.max.width, height: 50)
+        headerNode.style.preferredSize = headerNodeSize
+        
+        let collectionNodeSize = CGSize(width: constrainedSize.max.width, height: elementSize.height - 50 - (2 * kOuterPadding))
         collectionNode.style.preferredSize = collectionNodeSize
         
         let insetSpec = ASInsetLayoutSpec()
         insetSpec.insets = UIEdgeInsetsMake(0, kOuterPadding, 0, kOuterPadding)
         insetSpec.child = collectionNode
         
-        return insetSpec
+        let spec = ASStackLayoutSpec()
+        spec.direction = .vertical
+        spec.children = [headerNode,insetSpec]
+        
+        return spec
     }
     
     func fetchCards() {
@@ -101,6 +96,8 @@ class HorizontalCollectionNode : ASCellNode {
             }).disposed(by: disposeBag)
         
     }
+    
+    
 }
 
 extension HorizontalCollectionNode : ASCollectionDataSource,ASCollectionDelegate {
@@ -119,13 +116,9 @@ extension HorizontalCollectionNode : ASCollectionDataSource,ASCollectionDelegate
         }
     }
     
-    func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> ASCellNodeBlock {
-        
-        return {
-            let node = ASCellNode()
-            node.style.preferredSize = CGSize(width: 20, height: 20)
-            node.backgroundColor = UIColor.green
-            return node
-        }
+    func collectionNode(_ collectionNode: ASCollectionNode, didSelectItemAt indexPath: IndexPath) {
+        collectionNode.deselectItem(at: indexPath, animated: true)
+        let colorVC = ColorViewController(withColor: UIColor.blue)
+        self.viewController()?.navigationController?.pushViewController(colorVC, animated: true)
     }
 }

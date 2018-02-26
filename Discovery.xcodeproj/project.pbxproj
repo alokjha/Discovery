@@ -11,6 +11,9 @@
 		C210F4FE2043439A000541D2 /* BannerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C210F4FD2043439A000541D2 /* BannerNode.swift */; };
 		C210F5002043458F000541D2 /* BannerPagerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C210F4FF2043458F000541D2 /* BannerPagerNode.swift */; };
 		C210F50220435242000541D2 /* DiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C210F50120435241000541D2 /* DiscoveryViewController.swift */; };
+		C210F5042043FF8D000541D2 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C210F5032043FF8D000541D2 /* Utilities.swift */; };
+		C210F50620440740000541D2 /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C210F50520440740000541D2 /* CardType.swift */; };
+		C210F50820440848000541D2 /* HeaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C210F50720440848000541D2 /* HeaderNode.swift */; };
 		C29CD6F020416A5900248415 /* BannerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29CD6ED20416A5900248415 /* BannerRequest.swift */; };
 		C29CD6F120416A5900248415 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29CD6EE20416A5900248415 /* APIClient.swift */; };
 		C29CD6F220416A5900248415 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29CD6EF20416A5900248415 /* APIRequest.swift */; };
@@ -35,6 +38,9 @@
 		C210F4FD2043439A000541D2 /* BannerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerNode.swift; sourceTree = "<group>"; };
 		C210F4FF2043458F000541D2 /* BannerPagerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerPagerNode.swift; sourceTree = "<group>"; };
 		C210F50120435241000541D2 /* DiscoveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryViewController.swift; sourceTree = "<group>"; };
+		C210F5032043FF8D000541D2 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		C210F50520440740000541D2 /* CardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
+		C210F50720440848000541D2 /* HeaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderNode.swift; sourceTree = "<group>"; };
 		C29CD6ED20416A5900248415 /* BannerRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerRequest.swift; sourceTree = "<group>"; };
 		C29CD6EE20416A5900248415 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		C29CD6EF20416A5900248415 /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -123,6 +129,9 @@
 				C29CD6FF20430DEE00248415 /* CardCellNode.swift */,
 				C210F4FD2043439A000541D2 /* BannerNode.swift */,
 				C210F4FF2043458F000541D2 /* BannerPagerNode.swift */,
+				C210F50720440848000541D2 /* HeaderNode.swift */,
+				C210F5032043FF8D000541D2 /* Utilities.swift */,
+				C210F50520440740000541D2 /* CardType.swift */,
 				C2E5ABD8203ECE8F0061C097 /* Main.storyboard */,
 				C2E5ABDB203ECE8F0061C097 /* Assets.xcassets */,
 				C2E5ABDD203ECE8F0061C097 /* LaunchScreen.storyboard */,
@@ -288,7 +297,9 @@
 				C210F50220435242000541D2 /* DiscoveryViewController.swift in Sources */,
 				C29CD70020430DEE00248415 /* CardCellNode.swift in Sources */,
 				C29CD6FE20430CA300248415 /* HorizontalCollectionNode.swift in Sources */,
+				C210F5042043FF8D000541D2 /* Utilities.swift in Sources */,
 				C29CD6F820416D3F00248415 /* ImageRequest.swift in Sources */,
+				C210F50620440740000541D2 /* CardType.swift in Sources */,
 				C29CD6F120416A5900248415 /* APIClient.swift in Sources */,
 				C29CD6F020416A5900248415 /* BannerRequest.swift in Sources */,
 				C2E5ABD5203ECE8F0061C097 /* AppDelegate.swift in Sources */,
@@ -298,6 +309,7 @@
 				C29CD6FA20416D9000248415 /* CardRequest.swift in Sources */,
 				C210F4FC20433F62000541D2 /* ColorViewController.swift in Sources */,
 				C210F4FE2043439A000541D2 /* BannerNode.swift in Sources */,
+				C210F50820440848000541D2 /* HeaderNode.swift in Sources */,
 				C29CD6F620416B1D00248415 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

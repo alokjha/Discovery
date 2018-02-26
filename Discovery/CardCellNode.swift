@@ -55,11 +55,11 @@ class CardCellNode : ASCellNode {
     
     private func updateValues() {
         
-        priceTextNode.attributedText = NSAttributedString(string: card.price)
-        addressTextNode.attributedText = NSAttributedString(string: card.addressString)
-        bedTextNode.attributedText = NSAttributedString(string: "Beds:\(card.numBeds) ")
-        bathTextNode.attributedText = NSAttributedString(string: "Bath:\(card.numToilets) ")
-        areaTextNode.attributedText = NSAttributedString(string: "Area:\(card.sizeSQM) sqm")
+        priceTextNode.attributedText = NSAttributedString.bolAttributtedString(for: String.formattedPrice(card.price))
+        addressTextNode.attributedText = NSAttributedString.regularAttributtedString(for: card.addressString)
+        bedTextNode.attributedText = NSAttributedString.smallAttributtedString(for: "Beds:\(card.numBeds) ")
+        bathTextNode.attributedText = NSAttributedString.smallAttributtedString(for: "Bath:\(card.numToilets) ")
+        areaTextNode.attributedText = NSAttributedString.smallAttributtedString(for: "Area:\(card.sizeSQM) sqm")
         
         let imageRequest = ImageRequest(name: card.imageName)
         
@@ -78,21 +78,26 @@ class CardCellNode : ASCellNode {
         
         let priceAddressSpec = ASStackLayoutSpec()
         priceAddressSpec.direction = .horizontal
+        priceAddressSpec.spacing = 5.0
+        priceAddressSpec.alignItems = .baselineFirst
         priceAddressSpec.children = [priceTextNode,addressTextNode]
         
         let bedBathAreaSpec = ASStackLayoutSpec()
         bedBathAreaSpec.direction = .horizontal
+        bedBathAreaSpec.alignItems = .baselineFirst
         bedBathAreaSpec.children = [bedTextNode,bathTextNode,areaTextNode]
         
         let textAreaSpec = ASStackLayoutSpec()
         textAreaSpec.direction = .vertical
+        textAreaSpec.spacing = 5.0
         textAreaSpec.children = [priceAddressSpec,bedBathAreaSpec]
         
-        imageNode.style.flexBasis = ASDimensionMake("75%")
-        textAreaSpec.style.flexBasis = ASDimensionMake("25%")
+        imageNode.style.flexBasis = ASDimensionMake("70%")
+        textAreaSpec.style.flexBasis = ASDimensionMake("30%")
         
         let finalSpec = ASStackLayoutSpec()
         finalSpec.direction = .vertical
+        finalSpec.spacing = 5.0
         finalSpec.children = [imageNode,textAreaSpec]
         
         return finalSpec

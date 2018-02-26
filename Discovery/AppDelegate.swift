@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AsyncDisplayKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,10 +20,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
-        self.window?.rootViewController = UINavigationController(rootViewController: DiscoveryViewController())
+        self.window?.rootViewController = configureTabBar() //UINavigationController(rootViewController: DiscoveryViewController())
         self.window?.makeKeyAndVisible()
         
+        //UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.white
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search...", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+
+
         return true
+    }
+    
+    func configureTabBar() -> UITabBarController {
+        
+    
+        let unselected_textColor = UIColor(white: 49/255.0, alpha: 1.0)
+        
+        let selected_textColor = UIColor(red: 221/255.0, green: 87/255.0, blue: 0, alpha: 1.0)
+        
+        let unselected_attributes = [NSAttributedStringKey.foregroundColor : unselected_textColor , NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15.0)]
+        
+        let selected_attributes = [NSAttributedStringKey.foregroundColor : selected_textColor , NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15.0)]
+        
+        let profileVC = UINavigationController(rootViewController: ASViewController())
+        profileVC.tabBarItem.title = "Profile"
+        profileVC.tabBarItem.isEnabled = false
+        profileVC.tabBarItem.setTitleTextAttributes(unselected_attributes, for: UIControlState.normal)
+        profileVC.tabBarItem.setTitleTextAttributes(selected_attributes, for: UIControlState.selected)
+        
+        let shoutOutVC = UINavigationController(rootViewController: ASViewController())
+        shoutOutVC.tabBarItem.title = "ShoutOut"
+        shoutOutVC.tabBarItem.isEnabled = false
+        shoutOutVC.tabBarItem.setTitleTextAttributes(unselected_attributes, for: UIControlState.normal)
+        shoutOutVC.tabBarItem.setTitleTextAttributes(selected_attributes, for: UIControlState.selected)
+        
+        let discoveryVC = UINavigationController(rootViewController: DiscoveryViewController())
+        discoveryVC.tabBarItem.title = "Discovery"
+        discoveryVC.tabBarItem.setTitleTextAttributes(unselected_attributes, for: UIControlState.normal)
+        discoveryVC.tabBarItem.setTitleTextAttributes(selected_attributes, for: UIControlState.selected)
+        
+        let chatsVC = UINavigationController(rootViewController: ASViewController())
+        chatsVC.tabBarItem.title = "Chats"
+        chatsVC.tabBarItem.isEnabled = false
+        chatsVC.tabBarItem.setTitleTextAttributes(unselected_attributes, for: UIControlState.normal)
+        chatsVC.tabBarItem.setTitleTextAttributes(selected_attributes, for: UIControlState.selected)
+        
+        let journeyVC = UINavigationController(rootViewController: ASViewController())
+        journeyVC.tabBarItem.title = "Journey"
+        journeyVC.tabBarItem.isEnabled = false
+        journeyVC.tabBarItem.setTitleTextAttributes(unselected_attributes, for: UIControlState.normal)
+        journeyVC.tabBarItem.setTitleTextAttributes(selected_attributes, for: UIControlState.selected)
+        
+        let tabVC = UITabBarController()
+        tabVC.viewControllers = [profileVC,shoutOutVC,discoveryVC,chatsVC,journeyVC]
+        tabVC.selectedIndex = 2
+        tabVC.tabBar.isTranslucent = false
+        tabVC.tabBar.barTintColor = UIColor.white
+        
+        return tabVC
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

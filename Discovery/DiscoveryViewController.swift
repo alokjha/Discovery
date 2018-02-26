@@ -20,10 +20,11 @@ class DiscoveryViewController: ASViewController<ASDisplayNode> {
     private let cardTypes : [CardType] = [.featured,.latest,.openHouse,.under,.houseRent,.roomRent]
     
     private let searchController: UISearchController = {
-        let vc = UIViewController(nibName: nil, bundle: nil)
-        vc.view.backgroundColor = UIColor.red
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "Search..."
+        searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchBar.barTintColor = UIColor.blue
+        searchController.searchBar.tintColor = UIColor.white
         return searchController
     }()
     
@@ -51,8 +52,14 @@ class DiscoveryViewController: ASViewController<ASDisplayNode> {
             // Fallback on earlier versions
             navigationItem.titleView = searchController.searchBar
         }
-        searchController.searchBar.delegate = self
+        
+         searchController.searchBar.delegate = self
+        
         navigationItem.title = "ohmyhome"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white,NSAttributedStringKey.font : UIFont.systemFont(ofSize: 18.0)]
+        
+        navigationController?.navigationBar.barTintColor = UIColor.init(red: 223/255.0, green: 105/255.0, blue: 47/255.0, alpha: 1.0)
+        navigationController?.navigationBar.tintColor = UIColor.white
         
         tableNode.view.separatorStyle = .none
     }
@@ -86,9 +93,14 @@ extension DiscoveryViewController : ASTableDataSource,ASTableDelegate {
         }
         
         width -= 30.0
-        height = 250.0
+        height = 300.0
         
         let cardType = cardTypes[indexPath.row - 1]
+        
+        switch cardType {
+        case .latest , .under , .roomRent : width = width/2
+        default: break
+        }
         
         return HorizontalCollectionNode(elementSize: CGSize(width: width, height: height),cardType:cardType)
     }
