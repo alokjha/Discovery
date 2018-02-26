@@ -7,23 +7,26 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Address : Codable {
-    let block : String
-    let road : String
+class Address : Object , Codable {
+    @objc dynamic var  block : String = ""
+    @objc dynamic var road : String = ""
 }
 
-struct Card : Codable {
-    let id : String
-    let imageName : String
-    let price : String
-    let numBeds : Int
-    let numToilets : Int
-    let sizeSQM : String
-    let address : Address
+class Card :Object ,Codable {
+    
+    @objc dynamic var id : String = ""
+    @objc dynamic var imageName : String = ""
+    @objc dynamic var price : String = ""
+    @objc dynamic var numBeds : Int = 0
+    @objc dynamic var numToilets : Int = 0
+    @objc dynamic var sizeSQM : String = ""
+    @objc dynamic var address : Address?
+    @objc dynamic var isFavorited : Bool = false
     
     var addressString : String {
-        return address.block +  " " + address.road
+        return address!.block +  " " + address!.road
     }
     
     private enum CodingKeys: String, CodingKey {

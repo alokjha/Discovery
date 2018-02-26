@@ -21,6 +21,7 @@ class CardCellNode : ASCellNode {
     fileprivate let bedTextNode : ASTextNode = ASTextNode()
     fileprivate let bathTextNode : ASTextNode = ASTextNode()
     fileprivate let areaTextNode : ASTextNode = ASTextNode()
+    fileprivate let favButtonNode : ASButtonNode = ASButtonNode()
     
     init(card : Card) {
         self.card = card
@@ -46,11 +47,17 @@ class CardCellNode : ASCellNode {
         addSubnode(bathTextNode)
         addSubnode(areaTextNode)
         addSubnode(imageNode)
+        addSubnode(favButtonNode)
         
-        updateValues()
+        let normalImage = UIImage(named: "shortlist")
+        let selectedImage = UIImage(named: "shortlist-selected")
+        favButtonNode.setImage(normalImage, for: .normal)
+        favButtonNode.setImage(selectedImage, for: .selected)
+        favButtonNode.addTarget(self, action: #selector(toggleFavorite(_:)), forControlEvents: .touchUpInside)
         
         imageNode.backgroundColor = UIColor.brown
         
+        updateValues()
     }
     
     private func updateValues() {
@@ -60,6 +67,7 @@ class CardCellNode : ASCellNode {
         bedTextNode.attributedText = NSAttributedString.smallAttributtedString(for: "Beds:\(card.numBeds) ")
         bathTextNode.attributedText = NSAttributedString.smallAttributtedString(for: "Bath:\(card.numToilets) ")
         areaTextNode.attributedText = NSAttributedString.smallAttributtedString(for: "Area:\(card.sizeSQM) sqm")
+        
         
         let imageRequest = ImageRequest(name: card.imageName)
         
@@ -74,9 +82,31 @@ class CardCellNode : ASCellNode {
         
     }
     
+    override func didLoad() {
+        super.didLoad()
+        favButtonNode.isSelected = FavoriteManager.shared.isFavorite(card)
+    }
+    
+    @objc func toggleFavorite(_ sender : ASButtonNode) {
+        sender.isSelected = !sender.isSelected
+        
+        if FavoriteManager.shared.isFavorite(card){
+            FavoriteManager.shared.removeFromFavorite(card)
+        }
+        else {
+            FavoriteManager.shared.addToFavorite(card)
+        }
+        
+    }
+    
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         imageNode.style.preferredSize = CGSize(width: constrainedSize.max.width, height: constrainedSize.max.height*0.75)
+        
+        let insets = UIEdgeInsets(top: 50, left: CGFloat.infinity, bottom: CGFloat.infinity, right: 20)
+        let favImageSpec = ASInsetLayoutSpec(insets: insets, child: favButtonNode)
+        
+        let overlaySpec = ASOverlayLayoutSpec(child: imageNode, overlay: favImageSpec)
         
         let priceAddressSpec = ASStackLayoutSpec()
         priceAddressSpec.direction = .horizontal
@@ -101,7 +131,7 @@ class CardCellNode : ASCellNode {
         finalSpec.direction = .vertical
         finalSpec.spacing = 5.0
         finalSpec.style.flexGrow = 1.0
-        finalSpec.children = [imageNode,textAreaSpec]
+        finalSpec.children = [overlaySpec,textAreaSpec]
         
         return finalSpec
     }
