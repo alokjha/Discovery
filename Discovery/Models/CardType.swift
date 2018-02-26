@@ -17,6 +17,7 @@ enum CardType : String {
     case houseRent
     case roomRent
     
+    static let staticCardTypes = [CardType.latest , CardType.openHouse , CardType.under]
 }
 
 extension CardType {

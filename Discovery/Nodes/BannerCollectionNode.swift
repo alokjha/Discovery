@@ -13,12 +13,11 @@ import RxSwift
 class BannerCollectionNode : ASCellNode {
     
     fileprivate let client = APIClient()
-    
-    let pageControl = UIPageControl()
-    let collectionNode : ASCollectionNode
-    let disposeBag : DisposeBag = DisposeBag()
-    let elementSize : CGSize
-    var banners : [Banner] = []
+    fileprivate let pageControl = UIPageControl()
+    fileprivate let collectionNode : ASCollectionNode
+    fileprivate let disposeBag : DisposeBag = DisposeBag()
+    fileprivate let elementSize : CGSize
+    fileprivate var banners : [Banner] = []
     
     init(elementSize : CGSize) {
         
@@ -52,6 +51,7 @@ class BannerCollectionNode : ASCellNode {
     
     override func layout() {
         super.layout()
+        collectionNode.view.showsHorizontalScrollIndicator = false
         collectionNode.contentInset = UIEdgeInsets.zero
     }
 

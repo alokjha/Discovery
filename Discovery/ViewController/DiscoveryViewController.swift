@@ -88,14 +88,14 @@ extension DiscoveryViewController : ASTableDataSource,ASTableDelegate {
     func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
         
         var width : CGFloat  = UIScreen.main.bounds.size.width
-        var height : CGFloat = 200.0
+        var height : CGFloat = 250.0
         
         if indexPath.row == 0 {
             return BannerCollectionNode(elementSize: CGSize(width: width, height: height))
         }
         
         width -= 30.0
-        height = 300.0
+        height = 350.0
         
         let cardType = cardTypes[indexPath.row - 1]
         

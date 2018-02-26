@@ -1,5 +1,5 @@
 //
-//  Utilities.swift
+//  StringExtension.swift
 //  Discovery
 //
 //  Created by Alok Jha on 26/02/18.
@@ -7,28 +7,6 @@
 //
 
 import UIKit
-import AsyncDisplayKit
-
-extension ASDisplayNode {
-    
-    func viewController() -> UIViewController? {
-        
-        var nextResponder: UIResponder? = self.view
-        
-        repeat {
-            nextResponder = nextResponder?.next
-            
-            if let viewController = nextResponder as? UIViewController {
-                return viewController
-            }
-            
-        } while nextResponder != nil
-        
-        return nil
-    }
-}
-
-
 
 extension String {
     

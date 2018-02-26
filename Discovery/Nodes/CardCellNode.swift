@@ -76,6 +76,8 @@ class CardCellNode : ASCellNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
+        imageNode.style.preferredSize = CGSize(width: constrainedSize.max.width, height: constrainedSize.max.height*0.75)
+        
         let priceAddressSpec = ASStackLayoutSpec()
         priceAddressSpec.direction = .horizontal
         priceAddressSpec.spacing = 5.0
@@ -90,14 +92,15 @@ class CardCellNode : ASCellNode {
         let textAreaSpec = ASStackLayoutSpec()
         textAreaSpec.direction = .vertical
         textAreaSpec.spacing = 5.0
+        textAreaSpec.style.flexGrow = 1.0
         textAreaSpec.children = [priceAddressSpec,bedBathAreaSpec]
         
-        imageNode.style.flexBasis = ASDimensionMake("70%")
-        textAreaSpec.style.flexBasis = ASDimensionMake("30%")
+        textAreaSpec.style.preferredSize = CGSize(width: constrainedSize.max.width, height: constrainedSize.max.height*0.25)
         
         let finalSpec = ASStackLayoutSpec()
         finalSpec.direction = .vertical
         finalSpec.spacing = 5.0
+        finalSpec.style.flexGrow = 1.0
         finalSpec.children = [imageNode,textAreaSpec]
         
         return finalSpec

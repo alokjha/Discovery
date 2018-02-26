@@ -10,22 +10,18 @@ import UIKit
 import AsyncDisplayKit
 import RxSwift
 
-fileprivate let kOuterPadding : CGFloat = 5.0
-fileprivate let kInnerPadding : CGFloat = 10.0
-
-
+fileprivate let kOuterPadding : CGFloat = 10.0
+fileprivate let kInnerPadding : CGFloat = 15.0
 
 class HorizontalCollectionNode : ASCellNode {
     
     fileprivate let client = APIClient()
     fileprivate let disposeBag = DisposeBag()
-    
-    let collectionNode : ASCollectionNode
-    let headerNode : HeaderNode
-    let elementSize : CGSize
-    let cardType : CardType
-    
-    var cards : [Card] = []
+    fileprivate let collectionNode : ASCollectionNode
+    fileprivate let headerNode : HeaderNode
+    fileprivate let elementSize : CGSize
+    fileprivate let cardType : CardType
+    fileprivate var cards : [Card] = []
     
     init(elementSize : CGSize, cardType : CardType ) {
         
@@ -57,6 +53,7 @@ class HorizontalCollectionNode : ASCellNode {
     override func layout() {
         super.layout()
         
+        collectionNode.view.showsHorizontalScrollIndicator = false
         collectionNode.contentInset = UIEdgeInsetsMake(0, kOuterPadding, 0, kOuterPadding)
     }
     
@@ -103,23 +100,89 @@ class HorizontalCollectionNode : ASCellNode {
 extension HorizontalCollectionNode : ASCollectionDataSource,ASCollectionDelegate {
     
     func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
-        return cards.count
+        
+        if CardType.staticCardTypes.contains(cardType) {
+            return cards.count + 1
+        }
+        else {
+            return cards.count
+        }
     }
     
     func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
         
-        let card = cards[indexPath.item]
-        
-        return {
-            let node = CardCellNode(card: card)
-            return node
+        if CardType.staticCardTypes.contains(cardType)  {
+            
+            if indexPath.item == 0 {
+                
+                switch cardType {
+                    
+                case .latest : return {
+                    let node = PostPropertyNode()
+                    return node
+                    }
+                    
+                case .openHouse : return {
+                    let node = SearchListingsNode()
+                    return node
+                    }
+                    
+                case .under : return {
+                    let node = LoanCalculatorNode()
+                    return node
+                    }
+                    
+                default : return {
+                    let node = ASCellNode()
+                    return node
+                    }
+                    
+                }
+                
+            }
+            else {
+                
+                let card = cards[indexPath.item - 1]
+                
+                return {
+                    let node = CardCellNode(card: card)
+                    return node
+                }
+                
+            }
+            
         }
+        else {
+            
+            let card = cards[indexPath.item]
+            
+            return {
+                let node = CardCellNode(card: card)
+                return node
+            }
+        }
+        
     }
     
-    
     func collectionNode(_ collectionNode: ASCollectionNode, didSelectItemAt indexPath: IndexPath) {
+        
         collectionNode.deselectItem(at: indexPath, animated: true)
-        let colorVC = ColorViewController(withColor: UIColor.blue)
+        
+        var color = UIColor.blue
+        
+        if CardType.staticCardTypes.contains(cardType) && indexPath.item == 0 {
+            
+            switch cardType {
+                
+            case .latest : color = UIColor.orange
+            case .openHouse : color = UIColor.gray
+            case .under : color = UIColor.yellow
+            default :  break
+            }
+            
+        }
+        
+        let colorVC = ColorViewController(withColor: color)
         colorVC.hidesBottomBarWhenPushed = true
         self.viewController()?.navigationController?.pushViewController(colorVC, animated: true)
     }

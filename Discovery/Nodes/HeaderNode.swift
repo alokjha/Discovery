@@ -10,8 +10,8 @@ import AsyncDisplayKit
 
 class HeaderNode : ASCellNode {
     
-    let titleTextNode : ASTextNode = ASTextNode()
-    let buttonNode : ASButtonNode = ASButtonNode()
+    fileprivate let titleTextNode : ASTextNode = ASTextNode()
+    fileprivate let buttonNode : ASButtonNode = ASButtonNode()
     
     init(forCardType type : CardType) {
         
@@ -34,9 +34,9 @@ class HeaderNode : ASCellNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        let insetSpec1 = ASInsetLayoutSpec(insets: UIEdgeInsetsMake(0, 15, 0, 0), child: titleTextNode)
+        let insetSpec1 = ASInsetLayoutSpec(insets: UIEdgeInsetsMake(0, 10, 0, 0), child: titleTextNode)
         
-        let insetSpec2 = ASInsetLayoutSpec(insets: UIEdgeInsetsMake(0, 0, 0, 15), child: buttonNode)
+        let insetSpec2 = ASInsetLayoutSpec(insets: UIEdgeInsetsMake(0, 0, 0, 10), child: buttonNode)
         
         let headerStackSpec1 = ASStackLayoutSpec(direction: .horizontal,
                                                 spacing: 0,

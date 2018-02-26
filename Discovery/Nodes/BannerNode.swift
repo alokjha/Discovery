@@ -8,15 +8,13 @@
 
 import AsyncDisplayKit
 import RxSwift
-import SafariServices
-
 
 class BannerNode : ASCellNode {
     
     fileprivate let client = APIClient()
     fileprivate let disposeBag = DisposeBag()
-    let imageNode : ASImageNode = ASImageNode()
-    let banner : Banner
+    fileprivate let imageNode : ASImageNode = ASImageNode()
+    fileprivate let banner : Banner
     
     init(banner : Banner) {
         self.banner = banner
@@ -36,14 +34,7 @@ class BannerNode : ASCellNode {
         let spec = ASAbsoluteLayoutSpec(sizing: .default, children: [imageNode])
         return spec
     }
-    
-    override func layout() {
-        super.layout()
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapped))
-        //self.view.addGestureRecognizer(tapGesture)
-    }
-    
+
     func loadImage() {
         
         let imageRequest = ImageRequest(name: banner.imageName)
@@ -56,11 +47,5 @@ class BannerNode : ASCellNode {
                 print("ImageRequest error : \(error)")
             })
             .disposed(by: disposeBag)
-    }
-    
-    @objc func tapped() {
-        
-        let safariVC = SFSafariViewController(url: URL.init(string: banner.urlLink)!)
-        self.viewController()?.present(safariVC, animated: true, completion: nil)
     }
 }
