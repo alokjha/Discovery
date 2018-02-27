@@ -9,6 +9,23 @@
 import Foundation
 import RxSwift
 
+
+enum APIClientError: Error {
+    case CouldNotDownloadImage
+    case Other(Error)
+}
+
+extension APIClientError: CustomDebugStringConvertible {
+    var debugDescription: String {
+        switch self {
+        case .CouldNotDownloadImage:
+            return "Could not download image"
+        case let .Other(error):
+            return "\(error)"
+        }
+    }
+}
+
 class APIClient {
         
     private let baseURL = URL(string: "https://staging.omh.sg/itv/_discovery/")!
@@ -18,15 +35,16 @@ class APIClient {
             let request = apiRequest.request(with: self.baseURL)
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 guard error == nil else {
-                    observer.onError(error!)
+                    observer.onError(APIClientError.Other(error!))
                     observer.onCompleted()
                     return
                 }
+                
                 do {
                     let model: T = try JSONDecoder().decode(T.self, from: data ?? Data())
                     observer.onNext(model)
                 } catch let error {
-                    observer.onError(error)
+                    observer.onError(APIClientError.Other(error))
                 }
                 observer.onCompleted()
             }
@@ -44,14 +62,13 @@ class APIClient {
             let request = imageRequest.request(with: self.baseURL)
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 guard error == nil else {
-                    observer.onError(error!)
+                    observer.onError(APIClientError.Other(error!))
                     observer.onCompleted()
                     return
                 }
                 
                 guard let data = data ,let image = UIImage(data:data) else {
-                    let error = NSError(domain:"ImageRequest", code: 2, userInfo: [NSLocalizedDescriptionKey : "Unable to download image"])
-                    observer.onError(error)
+                    observer.onError(APIClientError.CouldNotDownloadImage)
                     observer.onCompleted()
                     return
                 }

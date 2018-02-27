@@ -20,19 +20,12 @@ class DiscoveryViewController: ASViewController<ASDisplayNode> {
     private let searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "Search..."
-        searchController.searchBar.searchBarStyle = .minimal
-        searchController.searchBar.isTranslucent = false
-        searchController.searchBar.barTintColor = UIColor.blue
-        searchController.searchBar.tintColor = UIColor.white
         return searchController
     }()
     
     init() {
-       
         tableNode = ASTableNode(style: .plain)
-        
         super.init(node: tableNode)
-        
         self.tableNode.delegate = self
         self.tableNode.dataSource = self
     }
@@ -49,9 +42,8 @@ class DiscoveryViewController: ASViewController<ASDisplayNode> {
         } else {
             navigationItem.titleView = searchController.searchBar
         }
-        
-         searchController.searchBar.delegate = self
-        
+        searchController.searchBar.delegate = self
+    
         navigationItem.title = "ohmyhome"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white,NSAttributedStringKey.font : UIFont.systemFont(ofSize: 18.0)]
         
@@ -65,6 +57,7 @@ class DiscoveryViewController: ASViewController<ASDisplayNode> {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 }
 
 extension DiscoveryViewController : UISearchBarDelegate {
@@ -83,13 +76,13 @@ extension DiscoveryViewController : ASTableDataSource,ASTableDelegate {
     func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
         
         var width : CGFloat  = UIScreen.main.bounds.size.width
-        var height : CGFloat = 250.0
+        var height : CGFloat = 200.0
         
         if indexPath.row == 0 {
             return BannerCollectionNode(elementSize: CGSize(width: width, height: height))
         }
         
-        width -= 30.0
+        width -= 40.0
         height = 350.0
         
         let cardType = cardTypes[indexPath.row - 1]
