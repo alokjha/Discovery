@@ -1,5 +1,5 @@
 //
-//  CardCellNode.swift
+//  CardCollectionNode.swift
 //  Discovery
 //
 //  Created by Alok Jha on 25/02/18.
@@ -13,9 +13,9 @@ import RxSwift
 fileprivate let kOuterPadding : CGFloat = 10.0
 fileprivate let kInnerPadding : CGFloat = 15.0
 
-class HorizontalCollectionNode : ASCellNode {
+class CardCollectionNode : ASCellNode {
     
-    fileprivate let client = APIClient()
+    fileprivate let cardModel : CardViewModel
     fileprivate let disposeBag = DisposeBag()
     fileprivate let collectionNode : ASCollectionNode
     fileprivate let headerNode : HeaderNode
@@ -34,8 +34,9 @@ class HorizontalCollectionNode : ASCellNode {
         flowLayout.minimumInteritemSpacing = kInnerPadding
         
         collectionNode = ASCollectionNode(collectionViewLayout: flowLayout)
-        
         headerNode = HeaderNode(forCardType: cardType)
+        
+        cardModel = CardViewModel(cardType: cardType)
         
         super.init()
         
@@ -47,7 +48,11 @@ class HorizontalCollectionNode : ASCellNode {
         collectionNode.dataSource = self
         collectionNode.delegate = self
         
-        fetchCards()
+        cardModel.cards.bind { cards in
+            self.cards.append(contentsOf: cards)
+            self.collectionNode.reloadData()
+        }.disposed(by: disposeBag)
+        
     }
     
     override func layout() {
@@ -75,29 +80,9 @@ class HorizontalCollectionNode : ASCellNode {
         
         return spec
     }
-    
-    func fetchCards() {
-        
-        let cardReuest = CardRequest(name: cardType.rawValue)
-        
-        client.send(apiRequest: cardReuest)
-            .observeOn(MainScheduler.instance)
-            .map { (response : CardListResponse)  in
-                response.data.cards
-            }
-            .subscribe(onNext: { (cards : [Card]) in
-                self.cards.append(contentsOf: cards)
-                self.collectionNode.reloadData()
-            }, onError: { (error) in
-                print("error : \(error)")
-            }).disposed(by: disposeBag)
-        
-    }
-    
-    
 }
 
-extension HorizontalCollectionNode : ASCollectionDataSource,ASCollectionDelegate {
+extension CardCollectionNode : ASCollectionDataSource,ASCollectionDelegate {
     
     func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
         
@@ -184,6 +169,6 @@ extension HorizontalCollectionNode : ASCollectionDataSource,ASCollectionDelegate
         
         let colorVC = ColorViewController(withColor: color)
         colorVC.hidesBottomBarWhenPushed = true
-        self.viewController()?.navigationController?.pushViewController(colorVC, animated: true)
+        self.view.viewController()?.navigationController?.pushViewController(colorVC, animated: true)
     }
 }

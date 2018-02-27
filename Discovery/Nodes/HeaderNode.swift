@@ -57,6 +57,6 @@ class HeaderNode : ASCellNode {
     @objc func viewMoreTapped(_ sender : ASButtonNode) {
         let colorVC = ColorViewController(withColor: UIColor.green)
         colorVC.hidesBottomBarWhenPushed = true
-        self.viewController()?.navigationController?.pushViewController(colorVC, animated: true)
+        self.view.viewController()?.navigationController?.pushViewController(colorVC, animated: true)
     }
 }

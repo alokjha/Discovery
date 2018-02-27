@@ -1,5 +1,5 @@
 //
-//  ASDisplayNode+Extension.swift
+//  UIView+Extension.swift
 //  Discovery
 //
 //  Created by Alok Jha on 26/02/18.
@@ -7,13 +7,13 @@
 //
 
 
-import AsyncDisplayKit
+import UIKit
 
-extension ASDisplayNode {
+extension UIView {
     
     func viewController() -> UIViewController? {
         
-        var nextResponder: UIResponder? = self.view
+        var nextResponder: UIResponder? = self
         
         repeat {
             nextResponder = nextResponder?.next

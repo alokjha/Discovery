@@ -5,5 +5,5 @@ target 'Discovery' do
     pod 'RxSwift'
     pod 'RxCocoa'
     pod 'Texture'
-    pod 'RxRealm'
+    pod 'RealmSwift'
 end

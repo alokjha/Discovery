@@ -34,7 +34,6 @@ extension APIRequest {
         
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("m4VtBbnb7K4ea7qQs8nsCzTRhNJdvKl9OpKlIMBd", forHTTPHeaderField: "x-api-key")
         return request
     }

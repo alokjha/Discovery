@@ -14,11 +14,9 @@ import RxCocoa
 
 class DiscoveryViewController: ASViewController<ASDisplayNode> {
 
-    private let apiClient = APIClient()
-    private let disposeBag = DisposeBag()
     private let tableNode : ASTableNode
     private let cardTypes : [CardType] = [.featured,.latest,.openHouse,.under,.houseRent,.roomRent]
-    
+
     private let searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "Search..."
@@ -28,7 +26,6 @@ class DiscoveryViewController: ASViewController<ASDisplayNode> {
         searchController.searchBar.tintColor = UIColor.white
         return searchController
     }()
-    
     
     init() {
        
@@ -50,7 +47,6 @@ class DiscoveryViewController: ASViewController<ASDisplayNode> {
         if #available(iOS 11.0, *) {
             navigationItem.searchController = searchController
         } else {
-            // Fallback on earlier versions
             navigationItem.titleView = searchController.searchBar
         }
         
@@ -69,7 +65,6 @@ class DiscoveryViewController: ASViewController<ASDisplayNode> {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
 
 extension DiscoveryViewController : UISearchBarDelegate {
@@ -104,7 +99,7 @@ extension DiscoveryViewController : ASTableDataSource,ASTableDelegate {
         default: break
         }
         
-        return HorizontalCollectionNode(elementSize: CGSize(width: width, height: height),cardType:cardType)
+        return CardCollectionNode(elementSize: CGSize(width: width, height: height),cardType:cardType)
     }
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {

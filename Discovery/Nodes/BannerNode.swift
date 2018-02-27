@@ -7,12 +7,9 @@
 //
 
 import AsyncDisplayKit
-import RxSwift
 
 class BannerNode : ASCellNode {
     
-    fileprivate let client = APIClient()
-    fileprivate let disposeBag = DisposeBag()
     fileprivate let imageNode : ASImageNode = ASImageNode()
     fileprivate let banner : Banner
     
@@ -26,7 +23,6 @@ class BannerNode : ASCellNode {
         imageNode.backgroundColor = UIColor.brown
         
         addSubnode(imageNode)
-        loadImage()
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -35,17 +31,7 @@ class BannerNode : ASCellNode {
         return spec
     }
 
-    func loadImage() {
-        
-        let imageRequest = ImageRequest(name: banner.imageName)
-        
-        client.downloadImage(imageRequest: imageRequest)
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (image) in
-                self.imageNode.image = image
-            }, onError: { (error) in
-                print("ImageRequest error : \(error)")
-            })
-            .disposed(by: disposeBag)
+    func setImage(_ image : UIImage) {
+        imageNode.image = image
     }
 }
