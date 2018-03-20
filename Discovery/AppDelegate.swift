@@ -31,13 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func configureTabBar() -> UITabBarController {
         
-    
         let unselected_textColor = UIColor(white: 49/255.0, alpha: 1.0)
-        
         let selected_textColor = UIColor(red: 221/255.0, green: 87/255.0, blue: 0, alpha: 1.0)
         
         let unselected_attributes = [NSAttributedStringKey.foregroundColor : unselected_textColor , NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15.0)]
-        
         let selected_attributes = [NSAttributedStringKey.foregroundColor : selected_textColor , NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15.0)]
         
         let profileVC = UINavigationController(rootViewController: ASViewController())

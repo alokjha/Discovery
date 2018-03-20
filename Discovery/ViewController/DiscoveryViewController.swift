@@ -37,11 +37,12 @@ class DiscoveryViewController: ASViewController<ASDisplayNode> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if #available(iOS 11.0, *) {
-            navigationItem.searchController = searchController
-        } else {
-            navigationItem.titleView = searchController.searchBar
-        }
+//        if #available(iOS 11.0, *) {
+//            navigationItem.searchController = searchController
+//        } else {
+//            navigationItem.titleView = searchController.searchBar
+//        }
+        navigationItem.titleView = searchController.searchBar
         searchController.searchBar.delegate = self
     
         navigationItem.title = "ohmyhome"
